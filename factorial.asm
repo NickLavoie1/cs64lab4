@@ -26,6 +26,44 @@ newline:
 main:
 
 	# TODO: Write your code here
+	li $v0, 4
+	la $a0, prompt
+	syscall
+
+	li $v0, 5
+	syscall 
+	move $t0, $v0
+
+	li $t1, 1
+	li $t2, 1
+
+loop:
+	beq $t0, $zero, loop_exit
+	mult $t0, $t1
+	mflo $t1
+	
+	#Print result and newline character
+	li $v0, 1
+	move $a0, $t1
+	syscall
+
+	li $v0, 4
+	la $a0, newline
+	syscall
+
+	sub $t0, $t0, $t2
+	
+	j loop
+
+loop_exit:
+	li $v0, 1
+	move $a0, $t1
+	syscall
+
+	li $v0, 4
+	la $a0, newline
+	syscall
+
 
 exit:
 
